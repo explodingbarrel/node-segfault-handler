@@ -32,7 +32,7 @@ static void segfault_handler(int sig, siginfo_t *si, void *unused) {
   // Construct a filename
   time(&now);
   pid = getpid();
-  snprintf(sbuff, sizeof(sbuff), "stacktrace-%d-%d.log", (int)now, pid );
+  snprintf(sbuff, sizeof(sbuff), "/tmp/stacktrace-%d.log", pid );
 
   // Open the File
   fd = open(sbuff, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IRGRP | S_IROTH);
