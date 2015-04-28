@@ -48,7 +48,7 @@ static void segfault_handler(int sig, siginfo_t *si, void *unused) {
 
   // Exit violently
   close(fd);
-  exit(-1);
+  exit(101);
 }
 
 // create some stack frames to inspect from CauseSegfault
