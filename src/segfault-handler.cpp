@@ -90,6 +90,7 @@ NAN_METHOD(RegisterHandler) {
   sa.sa_sigaction = segfault_handler;
   sa.sa_flags   = SA_SIGINFO;
   sigaction(SIGSEGV, &sa, NULL);
+  sigaction(SIGABRT, &sa, NULL);
   NanReturnUndefined();
 }
 
