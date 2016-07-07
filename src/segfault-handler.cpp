@@ -20,6 +20,10 @@ using namespace node;
 
 #define STDERR_FD 2
 
+#define NanScope() Nan::HandleScope scope
+#define NanReturnUndefined() return
+#define NanNew Nan::New
+
 static void segfault_handler(int sig, siginfo_t *si, void *unused) {
   void    *array[32]; // Array to store backtrace symbols
   size_t  size;       // To store the size of the stack backtrace
@@ -96,8 +100,8 @@ NAN_METHOD(RegisterHandler) {
 
 extern "C" {
   void init(Handle<Object> target) {
-    NODE_SET_METHOD(target, "registerHandler", RegisterHandler);
-    NODE_SET_METHOD(target, "causeSegfault", CauseSegfault);
+    target->Set(NanNew<String>("registerHandler").ToLocalChecked(), NanNew<FunctionTemplate>(RegisterHandler)->GetFunction());
+    target->Set(NanNew<String>("causeSegfault").ToLocalChecked(), NanNew<FunctionTemplate>(CauseSegfault)->GetFunction());
   }
   NODE_MODULE(segfault_handler, init);
 }
